@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Nyāya Logic Bot</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+<body>
+
+    <main class="container">
+
+        <header>
+            <h1>Nyāya Logic Bot</h1>
+
+            <p>
+                Learn structured reasoning through
+                the five stages of Nyāya inference.
+            </p>
+        </header>
+
+
+        <section class="input-section">
+
+            <label for="argument">
+                Enter an argument
+            </label>
+
+            <textarea
+                id="argument"
+                placeholder="Example: There is fire on the hill because there is smoke."
+            ></textarea>
+
+            <button id="analyzeButton">
+                Analyze Argument
+            </button>
+
+        </section>
+
+
+        <div
+            id="loading"
+            class="loading hidden"
+        >
+            Analyzing your argument...
+        </div>
+
+
+        <section
+            id="result"
+            class="result hidden"
+        >
+
+            <div class="stage">
+                <h2>Pratijñā</h2>
+                <p id="pratijna"></p>
+            </div>
+
+
+            <div class="stage">
+                <h2>Hetu</h2>
+                <p id="hetu"></p>
+            </div>
+
+
+            <div class="stage">
+                <h2>Udāharaṇa</h2>
+                <p id="udaharana"></p>
+            </div>
+
+
+            <div class="stage">
+                <h2>Upanaya</h2>
+                <p id="upanaya"></p>
+            </div>
+
+
+            <div class="stage">
+                <h2>Nigamana</h2>
+                <p id="nigamana"></p>
+            </div>
+
+
+            <div class="evaluation">
+
+                <h2>Logic Check</h2>
+
+                <p id="explanation"></p>
+
+                <strong id="validity"></strong>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="app.js"></script>
+
+</body>
+
+</html>

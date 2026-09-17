@@ -1,0 +1,136 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f3ef;
+    color: #222;
+}
+
+
+.container {
+    width: min(900px, 92%);
+    margin: 50px auto;
+}
+
+
+header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+
+header h1 {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+
+header p {
+    color: #666;
+    font-size: 18px;
+}
+
+
+.input-section {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+
+textarea {
+    width: 100%;
+    min-height: 130px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    resize: vertical;
+    font-size: 16px;
+}
+
+
+button {
+    margin-top: 15px;
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: #222;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+
+button:hover {
+    opacity: 0.85;
+}
+
+
+.result {
+    margin-top: 30px;
+}
+
+
+.stage {
+    background: white;
+    margin-bottom: 15px;
+    padding: 25px;
+    border-radius: 12px;
+    border-left: 5px solid #333;
+}
+
+
+.stage h2 {
+    margin-bottom: 10px;
+}
+
+
+.stage p {
+    line-height: 1.6;
+    color: #444;
+}
+
+
+.evaluation {
+    background: #eee;
+    padding: 25px;
+    border-radius: 12px;
+    margin-top: 20px;
+}
+
+
+.evaluation h2 {
+    margin-bottom: 10px;
+}
+
+
+#validity {
+    display: block;
+    margin-top: 15px;
+    font-size: 18px;
+}
+
+
+.loading {
+    text-align: center;
+    margin-top: 25px;
+}
+
+
+.hidden {
+    display: none;
+}
