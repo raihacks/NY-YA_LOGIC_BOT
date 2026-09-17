@@ -6,9 +6,18 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+if not os.getenv("OPENROUTER_API_KEY"):
+    raise RuntimeError(
+        "OPENROUTER_API_KEY is not set. Create a .env file in the project "
+        "root with a line like: OPENROUTER_API_KEY=sk-..."
+    )
+
 client = OpenAI(
-    api_key=os.getenv("OPENAI_API_KEY")
+    base_url="https://openrouter.ai/api/v1",
+    api_key=os.getenv("OPENROUTER_API_KEY")
 )
+
+MODEL = os.getenv("NYAYA_MODEL", "gpt-5.4")
 
 
 SYSTEM_PROMPT = """
@@ -58,7 +67,9 @@ Important rules:
   has five stages.
 - The five stages must form a logically connected argument.
 
-Return ONLY valid JSON in exactly this structure:
+Return ONLY valid JSON in exactly this structure, with no
+markdown code fences, no backticks, and no text before or
+after the JSON object:
 
 {
     "pratijna": "...",
@@ -71,15 +82,40 @@ Return ONLY valid JSON in exactly this structure:
 }
 """
 
+REQUIRED_KEYS = {
+    "pratijna", "hetu", "udaharana",
+    "upanaya", "nigamana", "explanation", "validity",
+}
 
-def analyze_argument(user_text: str):
 
+def _strip_code_fence(text: str) -> str:
+    """Models sometimes wrap JSON in ```json ... ``` even when told not to."""
+    text = text.strip()
+    if text.startswith("```"):
+        text = text.strip("`")
+        if text.lower().startswith("json"):
+            text = text[4:]
+    return text.strip()
+
+
+def analyze_argument(user_text: str) -> dict:
     response = client.responses.create(
-        model="gpt-5.6-luna",
+        model=MODEL,
         instructions=SYSTEM_PROMPT,
         input=user_text
     )
 
-    text = response.output_text
+    text = _strip_code_fence(response.output_text)
 
-    return json.loads(text)
+    try:
+        result = json.loads(text)
+    except json.JSONDecodeError as e:
+        raise ValueError(
+            f"Model did not return valid JSON ({e}). Raw output: {text!r}"
+        )
+
+    missing = REQUIRED_KEYS - result.keys()
+    if missing:
+        raise ValueError(f"Model response is missing keys: {missing}")
+
+    return result
