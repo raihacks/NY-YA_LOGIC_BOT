@@ -19,7 +19,6 @@ client = OpenAI(
 
 MODEL = os.getenv("NYAYA_MODEL", "gpt-5.4")
 
-
 SYSTEM_PROMPT = """
 You are Nyaya Logic Bot, an educational assistant
 based on the five-member Nyaya inference structure.
@@ -102,7 +101,8 @@ def analyze_argument(user_text: str) -> dict:
     response = client.responses.create(
         model=MODEL,
         instructions=SYSTEM_PROMPT,
-        input=user_text
+        input=user_text,
+        max_output_tokens=2000
     )
 
     text = _strip_code_fence(response.output_text)
